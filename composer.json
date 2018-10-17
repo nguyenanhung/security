@@ -1,0 +1,50 @@
+{
+    "name": "nguyenanhung/security",
+    "type": "library",
+    "description": "Wrapper for Security, Encrypt, Encode, Purifier",
+    "keywords": [
+        "security",
+        "encrypt",
+        "encode",
+        "decode"
+    ],
+    "homepage": "https://github.com/nguyenanhung/security",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Nguyen An Hung",
+            "email": "dev@nguyenanhung.com",
+            "homepage": "https://nguyenanhung.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "paragonie/random_compat": "^2.0.17",
+        "paragonie/sodium_compat": "^1.6.6",
+        "ircmaxell/password-compat": "^1.0.4",
+        "symfony/intl": "3.4.17",
+        "symfony/polyfill": "1.9.0",
+        "symfony/security-core": "3.4.17",
+        "symfony/event-dispatcher": "3.4.17",
+        "symfony/http-foundation": "3.4.17",
+        "symfony/http-kernel": "3.4.17",
+        "symfony/property-access": "3.4.17",
+        "symfony/security-csrf": "3.4.17",
+        "nguyenanhung/my-debug": "^0.1",
+        "ezyang/htmlpurifier": "^4.10",
+        "phpseclib/phpseclib": "^2.0",
+        "phpseclib/mcrypt_compat": "^1.0"
+    },
+    "require-dev": {
+        "kint-php/kint": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "nguyenanhung\\MySecurity\\": "src/"
+        }
+    }
+}
