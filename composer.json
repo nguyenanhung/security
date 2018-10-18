@@ -37,7 +37,8 @@
         "nguyenanhung/my-debug": "^0.1",
         "ezyang/htmlpurifier": "^4.10",
         "phpseclib/phpseclib": "^2.0",
-        "phpseclib/mcrypt_compat": "^1.0"
+        "phpseclib/mcrypt_compat": "^1.0",
+        "defuse/php-encryption": "^2.2"
     },
     "require-dev": {
         "kint-php/kint": "^3.0"

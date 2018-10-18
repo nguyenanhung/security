@@ -19,6 +19,8 @@ spl_autoload_register(function ($className) {
         $fileName = str_replace('nguyenanhung\MySecurity\Interfaces', 'src\Interfaces', $fileName);
     } elseif (strpos($fileName, 'nguyenanhung\MySecurity\Repository') !== FALSE) {
         $fileName = str_replace('nguyenanhung\MySecurity\Repository', 'src\Repository', $fileName);
+    } elseif (strpos($fileName, 'nguyenanhung\MySecurity\Helper') !== FALSE) {
+        $fileName = str_replace('nguyenanhung\MySecurity\Helper', 'src\Helper', $fileName);
     } else {
         $fileName = str_replace('nguyenanhung\MySecurity', 'src', $fileName);
     }
