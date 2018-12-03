@@ -9,10 +9,6 @@
 
 namespace nguyenanhung\MySecurity\Repository;
 
-if (!interface_exists('nguyenanhung\MySecurity\Interfaces\ProjectInterface')) {
-    include __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Interfaces' . DIRECTORY_SEPARATOR . 'ProjectInterface.php';
-}
-
 use nguyenanhung\MySecurity\Interfaces\ProjectInterface;
 
 /**
