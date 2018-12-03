@@ -18,5 +18,15 @@ namespace nguyenanhung\MySecurity;
  */
 interface EncryptionInterface
 {
-
+    /**
+     * Function createKey
+     *
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-03 16:20
+     *
+     * @param int $length
+     *
+     * @return bool|string
+     */
+    public function createKey($length = 16);
 }
