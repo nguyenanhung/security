@@ -7,12 +7,12 @@
  * Time: 09:51
  */
 
-namespace nguyenanhung\MySecurity\Interfaces;
+namespace nguyenanhung\MySecurity;
 
 /**
  * Interface HtmlSecurityInterface
  *
- * @package   nguyenanhung\MySecurity\Interfaces
+ * @package   nguyenanhung\MySecurity
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
@@ -25,6 +25,8 @@ interface HtmlSecurityInterface
      * @time  : 10/18/18 09:44
      *
      * @param null $cachePath
+     *
+     * @return  $this
      */
     public function setCachePath($cachePath = NULL);
 
@@ -37,6 +39,8 @@ interface HtmlSecurityInterface
      * @time  : 10/18/18 09:51
      *
      * @param array $config Mảng dữ liệu cấu hình
+     *
+     * @return  $this
      *
      * @see   http://htmlpurifier.org/live/configdoc/plain.html
      */
