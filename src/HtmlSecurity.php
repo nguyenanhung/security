@@ -10,7 +10,6 @@
 namespace nguyenanhung\MySecurity;
 
 use nguyenanhung\MySecurity\Interfaces\ProjectInterface;
-use nguyenanhung\MySecurity\Interfaces\HtmlSecurityInterface;
 
 /**
  * Class HtmlSecurity
@@ -66,10 +65,14 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      * @time  : 10/18/18 09:44
      *
      * @param null $cachePath
+     *
+     * @return  $this
      */
     public function setCachePath($cachePath = NULL)
     {
         $this->cachePath = $cachePath;
+
+        return $this;
     }
 
     /**
@@ -82,11 +85,15 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      *
      * @param array $config Mảng dữ liệu cấu hình
      *
+     * @return  $this
+     *
      * @see   http://htmlpurifier.org/live/configdoc/plain.html
      */
     public function setConfig($config = [])
     {
         $this->config = $config;
+
+        return $this;
     }
 
     /**

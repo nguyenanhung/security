@@ -249,16 +249,15 @@ class Xss
     }//xss_clean
 
     /**
-     * Remove Invisible Characters
+     * Function remove_invisible_characters
      *
-     * This prevents sandwiching null characters
-     * between ascii characters, like Java\0script.
+     * @author: 713uk13m <dev@nguyenanhung.com>
+     * @time  : 2018-12-03 15:50
      *
-     * @access    public
+     * @param      $str
+     * @param bool $url_encoded
      *
-     * @param    string
-     *
-     * @return    string
+     * @return string|string[]|null
      */
     protected static function remove_invisible_characters($str, $url_encoded = TRUE)
     {

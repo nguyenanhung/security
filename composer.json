@@ -19,7 +19,6 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-openssl": "*",
@@ -38,7 +37,8 @@
         "ezyang/htmlpurifier": "^4.10",
         "phpseclib/phpseclib": "^2.0",
         "phpseclib/mcrypt_compat": "^1.0",
-        "defuse/php-encryption": "^2.2"
+        "defuse/php-encryption": "^2.2",
+        "zendframework/zend-escaper": "^2.6"
     },
     "require-dev": {
         "kint-php/kint": "^3.0"
