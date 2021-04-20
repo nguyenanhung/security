@@ -7,18 +7,18 @@
  * Time: 14:55
  */
 
-namespace nguyenanhung\MySecurity\Interfaces;
+namespace nguyenanhung\MySecurity;
 
 /**
  * Interface ProjectInterface
  *
- * @package   nguyenanhung\MySecurity\Interfaces
+ * @package   nguyenanhung\MySecurity
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
 interface ProjectInterface
 {
-    const VERSION       = '2.0.2';
+    const VERSION       = '2.0.3';
     const USE_BENCHMARK = TRUE;
 
     /**

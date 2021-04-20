@@ -8,7 +8,8 @@
  */
 
 namespace nguyenanhung\MySecurity;
-use nguyenanhung\MySecurity\Interfaces\ProjectInterface;
+
+use Exception;
 
 /**
  * Class Encryption
@@ -21,6 +22,9 @@ class Encryption implements ProjectInterface, EncryptionInterface
 {
     /**
      * Encryption constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
@@ -55,7 +59,7 @@ class Encryption implements ProjectInterface, EncryptionInterface
             try {
                 return random_bytes((int) $length);
             }
-            catch (\Exception $e) {
+            catch (Exception $e) {
                 return FALSE;
             }
         } elseif (defined('MCRYPT_DEV_URANDOM')) {
@@ -66,6 +70,4 @@ class Encryption implements ProjectInterface, EncryptionInterface
 
         return ($isSecure === TRUE) ? $key : FALSE;
     }
-
-
 }

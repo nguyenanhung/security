@@ -9,7 +9,6 @@
 
 namespace nguyenanhung\MySecurity;
 
-use nguyenanhung\MySecurity\Interfaces\ProjectInterface;
 
 /**
  * Class Password
@@ -24,6 +23,9 @@ class Password implements ProjectInterface, PasswordInterface
 
     /**
      * Password constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
