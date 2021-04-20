@@ -9,7 +9,8 @@
 
 namespace nguyenanhung\MySecurity;
 
-use nguyenanhung\MySecurity\Interfaces\ProjectInterface;
+use HTMLPurifier_Config;
+use HTMLPurifier;
 
 /**
  * Class HtmlSecurity
@@ -32,6 +33,9 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
 
     /**
      * HtmlSecurity constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
@@ -110,16 +114,15 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      */
     public function escape($str = '')
     {
-        $config = \HTMLPurifier_Config::createDefault();
+        $config = HTMLPurifier_Config::createDefault();
         $config->set('Cache.SerializerPath', $this->cachePath);
         if (!empty($this->config) && is_array($this->config) && count($this->config) > 0) {
             foreach ($this->config as $key => $value) {
                 $config->set($key, $value);
             }
         }
-        $purifier = new \HTMLPurifier($config);
-        $clean    = $purifier->purify($str);
+        $purifier = new HTMLPurifier($config);
 
-        return $clean;
+        return $purifier->purify($str);
     }
 }

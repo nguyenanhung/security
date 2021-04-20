@@ -22,10 +22,10 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-openssl": "*",
-        "paragonie/random_compat": "^2.0",
-        "paragonie/sodium_compat": "^1.13",
+        "paragonie/random_compat": "^2.0 || ^9.99",
+        "paragonie/sodium_compat": "^1.15",
         "ircmaxell/password-compat": "^1.0",
-        "symfony/polyfill": "^1.18",
+        "symfony/polyfill": "^1.22",
         "symfony/intl": "^5.2 || ^4.4",
         "symfony/security-core": "^5.2 || ^4.4",
         "symfony/event-dispatcher": "^5.2 || ^4.4",
@@ -35,12 +35,9 @@
         "symfony/security-csrf": "^5.2 || ^4.4",
         "nguyenanhung/my-debug": "^2.0",
         "ezyang/htmlpurifier": "^4.13",
-        "phpseclib/phpseclib": "^2.0",
-        "phpseclib/mcrypt_compat": "^1.0",
+        "phpseclib/phpseclib": "^3.0",
+        "phpseclib/mcrypt_compat": "^2.0",
         "laminas/laminas-escaper": "^2.6"
-    },
-    "require-dev": {
-        "kint-php/kint": "^3.0"
     },
     "autoload": {
         "psr-4": {

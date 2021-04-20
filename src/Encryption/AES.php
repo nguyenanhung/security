@@ -9,6 +9,8 @@
 
 namespace nguyenanhung\MySecurity\Encryption;
 
+use phpseclib3\Crypt\AES as CryptAES;
+
 /**
  * Class AES
  *
@@ -22,9 +24,13 @@ class AES implements DriverInterface
     private $keyLength = 128;
     /** @var string Private Key */
     private $key = '1234567890qwerty';
+    private $iv;
 
     /**
      * AES constructor.
+     *
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
     public function __construct()
     {
@@ -33,12 +39,12 @@ class AES implements DriverInterface
     /**
      * Function setKeyLength
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:25
-     *
      * @param int $keyLength
      *
      * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 04/20/2021 21:47
      */
     public function setKeyLength($keyLength = 128)
     {
@@ -50,10 +56,10 @@ class AES implements DriverInterface
     /**
      * Function getKeyLength
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:25
-     *
      * @return int
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 04/20/2021 21:52
      */
     public function getKeyLength()
     {
@@ -63,12 +69,12 @@ class AES implements DriverInterface
     /**
      * Function setKey
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:26
-     *
      * @param string $key
      *
-     * @return $this
+     * @return $this|mixed
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 04/20/2021 21:57
      */
     public function setKey($key = '')
     {
@@ -80,14 +86,44 @@ class AES implements DriverInterface
     /**
      * Function getKey
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:26
-     *
-     * @return string
+     * @return mixed|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 04/20/2021 22:01
      */
     public function getKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Function setIv
+     *
+     * @param $iv
+     *
+     * @return $this
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 04/20/2021 45:16
+     */
+    public function setIv($iv)
+    {
+        $this->iv = $iv;
+
+        return $this;
+    }
+
+    /**
+     * Function getIv
+     *
+     * @return mixed
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 04/20/2021 45:29
+     */
+    public function getIv()
+    {
+        return $this->iv;
     }
 
     /**
@@ -102,15 +138,15 @@ class AES implements DriverInterface
      */
     public function encrypt($plainText = '')
     {
-        $cipher = new \phpseclib\Crypt\AES();
+        $cipher = new CryptAES('ctr');
         // could use AES::MODE_CBC
         // keys are null-padded to the closest valid size
         // longer than the longest key and it's truncated
         $cipher->setKeyLength($this->keyLength);
         $cipher->setKey($this->key);
-//        $cipher->setPassword($this->key, 'pbkdf2', 'sha1', 'phpseclib/salt', 1000, 256 / 8);
+        // $cipher->setPassword($this->key, 'pbkdf2', 'sha1', 'phpseclib/salt', 1000, 256 / 8);
         // the IV defaults to all-NULLs if not explicitly defined
-        //$cipher->setIV('7014a0eb6d1611151a286c0ff4f2238f92c120d6');
+        $cipher->setIV($this->iv);
 
         return base64_encode($cipher->encrypt($plainText));
     }
@@ -127,15 +163,15 @@ class AES implements DriverInterface
      */
     public function decrypt($cipherText = '')
     {
-        $cipher = new \phpseclib\Crypt\AES();
+        $cipher = new CryptAES('ctr');
         // could use AES::MODE_CBC
         // keys are null-padded to the closest valid size
         // longer than the longest key and it's truncated
         $cipher->setKeyLength($this->keyLength);
         $cipher->setKey($this->key);
-//        $cipher->setPassword($this->key, 'pbkdf2', 'sha1', 'phpseclib/salt', 1000, 256 / 8);
+        // $cipher->setPassword($this->key, 'pbkdf2', 'sha1', 'phpseclib/salt', 1000, 256 / 8);
         // the IV defaults to all-NULLs if not explicitly defined
-        //$cipher->setIV('7014a0eb6d1611151a286c0ff4f2238f92c120d6');
+        $cipher->setIV($this->iv);
 
         return $cipher->decrypt(base64_decode($cipherText));
     }
