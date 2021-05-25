@@ -31,6 +31,8 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
     /** @var null|array Mảng dữ liệu cấu hình cho HTML Purifier */
     private $config = NULL;
 
+    use VersionTrait;
+
     /**
      * HtmlSecurity constructor.
      *
@@ -47,19 +49,6 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
     public function __destruct()
     {
         // TODO: Implement __destruct() method.
-    }
-
-    /**
-     * Hàm lấy thông tin phiên bản Package
-     *
-     * @author  : 713uk13m <dev@nguyenanhung.com>
-     * @time    : 10/13/18 15:12
-     *
-     * @return mixed|string Current Project Version, VD: 0.1.0
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
     }
 
     /**

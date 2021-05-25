@@ -21,6 +21,8 @@ class Password implements ProjectInterface, PasswordInterface
 {
     const ALGORITHM_DEFAULT = PASSWORD_DEFAULT;
 
+    use VersionTrait;
+
     /**
      * Password constructor.
      *
@@ -29,19 +31,6 @@ class Password implements ProjectInterface, PasswordInterface
      */
     public function __construct()
     {
-    }
-
-    /**
-     * Function getVersion
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:02
-     *
-     * @return mixed|string
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
     }
 
     /**
