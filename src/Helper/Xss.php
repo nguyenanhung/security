@@ -12,7 +12,7 @@ namespace nguyenanhung\MySecurity\Helper;
 /**
  * Class Xss
  *
- * Class Xss Security được lấy ý tưởng từ class Security của CodeIgniter
+ * Class Xss Security được kế thừa từ class Security của CodeIgniter
  *
  * @package   nguyenanhung\MySecurity\Helper
  * @author    713uk13m <dev@nguyenanhung.com>
@@ -50,8 +50,8 @@ class Xss
      * harvested from examining vulnerabilities in other programs:
      * http://ha.ckers.org/xss.html
      *
-     * @param    mixed    string or array
-     * @param    bool
+     * @param mixed    string or array
+     * @param bool
      *
      * @return    string|array
      */
@@ -93,10 +93,11 @@ class Xss
          * these are the ones that will pose security problems.
          *
          */
-        $str = preg_replace_callback("/[a-z]+=([\'\"]).*?\\1/si", function ($match) {
+        $entitiesRegex = "/[a-z]+=([\'\"]).*?\\1/si";
+        $str           = preg_replace_callback($entitiesRegex, function ($match) {
             return str_replace(['>', '<', '\\'], ['&gt;', '&lt;', '\\\\'], $match[0]);
         }, $str);
-        $str = preg_replace_callback("/<\w+.*?(?=>|<|$)/si", 'self::entity_decode', $str);
+        $str           = preg_replace_callback("/<\w+.*?(?=>|<|$)/si", 'self::entity_decode', $str);
         /*
          * Remove Invisible Characters Again!
          */
@@ -166,10 +167,12 @@ class Xss
             $original = $str;
             if (preg_match("/<a/i", $str)) {
                 $str = preg_replace_callback("#<a\s+([^>]*?)(>|$)#si", function ($match) {
+                    $htmlTagPattern = '#href=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|data\s*:)#si';
+
                     return str_replace(
                         $match[1],
                         preg_replace(
-                            '#href=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|data\s*:)#si',
+                            $htmlTagPattern,
                             '',
                             self::filter_attributes(str_replace(['<', '>'], '', $match[1]))
                         ),
@@ -179,10 +182,12 @@ class Xss
             }
             if (preg_match("/<img/i", $str)) {
                 $str = preg_replace_callback("#<img\s+([^>]*?)(\s?/?>|$)#si", function ($match) {
+                    $htmlTagPattern = '#src=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)#si';
+
                     return str_replace(
                         $match[1],
                         preg_replace(
-                            '#src=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)#si',
+                            $htmlTagPattern,
                             '',
                             self::filter_attributes(str_replace(['<', '>'], '', $match[1]))
                         ),
@@ -190,8 +195,9 @@ class Xss
                     );
                 }, $str);
             }
-            if (preg_match("/script/i", $str) OR preg_match("/xss/i", $str)) {
-                $str = preg_replace("#<(/*)(script|xss)(.*?)\>#si", '[removed]', $str);
+            if (preg_match("/script/i", $str) or preg_match("/xss/i", $str)) {
+                $htmlTagPattern = "#<(/*)(script|xss)(.*?)\>#si";
+                $str            = preg_replace($htmlTagPattern, '[removed]', $str);
             }
         }
         while ($original != $str);
@@ -213,7 +219,9 @@ class Xss
             $str = '&lt;' . $matches[1] . $matches[2] . $matches[3];
 
             // encode captured opening or closing brace to prevent recursive vectors
-            return $str .= str_replace(['>', '<'], ['&gt;', '&lt;'], $matches[4]);
+            $str .= str_replace(['>', '<'], ['&gt;', '&lt;'], $matches[4]);
+
+            return $str;
         }, $str);
         /*
          * Sanitize naughty scripting elements
@@ -242,7 +250,11 @@ class Xss
          * code found and removed/changed during processing.
          */
         if ($is_image === TRUE) {
-            return ($str == $converted_string) ? TRUE : FALSE;
+            if (($str == $converted_string)) {
+                return TRUE;
+            } else {
+                return FALSE;
+            }
         }
 
         return $str;
@@ -286,7 +298,7 @@ class Xss
      *
      * Called by xss_clean()
      *
-     * @param    string
+     * @param string
      *
      * @return    string
      */
@@ -295,8 +307,9 @@ class Xss
         /*
          * Protect GET variables in URLs
          */
-        $xss_hash = md5(time() + mt_rand(0, 1999999999));
-        $str      = preg_replace('|\&([a-z\_0-9\-]+)\=([a-z\_0-9\-]+)|i', $xss_hash . "\\1=\\2", $str);
+        $xss_hash        = md5(time() + mt_rand(0, 1999999999));
+        $entitiesPattern = '|\&([a-z\_0-9\-]+)\=([a-z\_0-9\-]+)|i';
+        $str             = preg_replace($entitiesPattern, $xss_hash . "\\1=\\2", $str);
         /*
          * Validate standard character entities
          *
@@ -325,7 +338,7 @@ class Xss
      *
      * A utility function for xss_clean()
      *
-     * @param    string
+     * @param string
      *
      * @return    string
      */
@@ -399,7 +412,8 @@ class Xss
                 $attribs[] = preg_quote($attr[0], '/');
             }
             // find occurrences of illegal attribute strings with quotes (042 and 047 are octal quotes)
-            preg_match_all("/(" . implode('|', $evil_attributes) . ")\s*=\s*(\042|\047)([^\\2]*?)(\\2)/is", $str, $matches, PREG_SET_ORDER);
+            $regexPattern = "/(" . implode('|', $evil_attributes) . ")\s*=\s*(\042|\047)([^\\2]*?)(\\2)/is";
+            preg_match_all($regexPattern, $str, $matches, PREG_SET_ORDER);
             foreach ($matches as $attr) {
                 $attribs[] = preg_quote($attr[0], '/');
             }
@@ -424,8 +438,8 @@ class Xss
      * correctly.  html_entity_decode() does not convert entities without
      * semicolons, so we are left with our own little solution here. Bummer.
      *
-     * @param    string
-     * @param    string
+     * @param string
+     * @param string
      *
      * @return    string
      */
@@ -446,14 +460,15 @@ class Xss
      *
      * Filters tag attributes for consistency and safety
      *
-     * @param    string
+     * @param string
      *
      * @return    string
      */
     protected static function filter_attributes($str)
     {
-        $out = '';
-        if (preg_match_all('#\s*[a-z\-]+\s*=\s*(\042|\047)([^\\1]*?)\\1#is', $str, $matches)) {
+        $out          = '';
+        $regexPattern = '#\s*[a-z\-]+\s*=\s*(\042|\047)([^\\1]*?)\\1#is';
+        if (preg_match_all($regexPattern, $str, $matches)) {
             foreach ($matches[0] as $match) {
                 $out .= preg_replace("#/\*.*?\*/#s", '', $match);
             }

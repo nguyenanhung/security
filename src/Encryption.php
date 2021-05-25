@@ -20,6 +20,8 @@ use Exception;
  */
 class Encryption implements ProjectInterface, EncryptionInterface
 {
+    use VersionTrait;
+
     /**
      * Encryption constructor.
      *
@@ -28,19 +30,6 @@ class Encryption implements ProjectInterface, EncryptionInterface
      */
     public function __construct()
     {
-    }
-
-    /**
-     * Function getVersion
-     *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:14
-     *
-     * @return mixed|string
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
     }
 
     /**
