@@ -44,14 +44,6 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
     }
 
     /**
-     * HtmlSecurity destructor.
-     */
-    public function __destruct()
-    {
-        // TODO: Implement __destruct() method.
-    }
-
-    /**
      * Hàm cấu hình thư mục cache cho HTML Purifier
      *
      * @author: 713uk13m <dev@nguyenanhung.com>
@@ -61,7 +53,7 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      *
      * @return  $this
      */
-    public function setCachePath($cachePath = NULL)
+    public function setCachePath($cachePath = NULL): HtmlSecurity
     {
         $this->cachePath = $cachePath;
 
@@ -82,7 +74,7 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      *
      * @see   http://htmlpurifier.org/live/configdoc/plain.html
      */
-    public function setConfig($config = [])
+    public function setConfig($config = []): HtmlSecurity
     {
         $this->config = $config;
 
@@ -101,7 +93,7 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      *
      * @return string Nội dung đầu ra sau khi đã lọc
      */
-    public function escape($str = '')
+    public function escape($str = ''): string
     {
         $config = HTMLPurifier_Config::createDefault();
         $config->set('Cache.SerializerPath', $this->cachePath);

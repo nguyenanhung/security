@@ -18,7 +18,7 @@ if (!function_exists('escape_html')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:03
      */
-    function escape_html($string)
+    function escape_html($string): string
     {
         $escape = new Laminas\Escaper\Escaper();
 
@@ -36,7 +36,7 @@ if (!function_exists('escape_html_attribute')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 58:41
      */
-    function escape_html_attribute($string)
+    function escape_html_attribute($string): string
     {
         $escape = new Laminas\Escaper\Escaper();
 
@@ -54,7 +54,7 @@ if (!function_exists('escape_js')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:04
      */
-    function escape_js($string)
+    function escape_js($string): string
     {
         $escape = new Laminas\Escaper\Escaper();
 
@@ -72,7 +72,7 @@ if (!function_exists('escape_css')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:24
      */
-    function escape_css($string)
+    function escape_css($string): string
     {
         $escape = new Laminas\Escaper\Escaper();
 
@@ -90,7 +90,7 @@ if (!function_exists('escape_url')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 05/25/2021 59:40
      */
-    function escape_url($string)
+    function escape_url($string): string
     {
         $escape = new Laminas\Escaper\Escaper();
 

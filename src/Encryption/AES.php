@@ -44,9 +44,9 @@ class AES implements DriverInterface
      * @return $this
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 04/20/2021 21:47
+     * @time     : 08/01/2021 04:06
      */
-    public function setKeyLength($keyLength = 128)
+    public function setKeyLength(int $keyLength = 128): AES
     {
         $this->keyLength = $keyLength;
 
@@ -61,7 +61,7 @@ class AES implements DriverInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 21:52
      */
-    public function getKeyLength()
+    public function getKeyLength(): int
     {
         return $this->keyLength;
     }
@@ -71,12 +71,12 @@ class AES implements DriverInterface
      *
      * @param string $key
      *
-     * @return $this|mixed
+     * @return $this
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 21:57
      */
-    public function setKey($key = '')
+    public function setKey($key = ''): AES
     {
         $this->key = $key;
 
@@ -86,12 +86,12 @@ class AES implements DriverInterface
     /**
      * Function getKey
      *
-     * @return mixed|string
+     * @return string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 04/20/2021 22:01
+     * @time     : 08/01/2021 03:21
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -106,7 +106,7 @@ class AES implements DriverInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 45:16
      */
-    public function setIv($iv)
+    public function setIv($iv): AES
     {
         $this->iv = $iv;
 
@@ -136,7 +136,7 @@ class AES implements DriverInterface
      *
      * @return string
      */
-    public function encrypt($plainText = '')
+    public function encrypt($plainText = ''): string
     {
         $cipher = new CryptAES('ctr');
         // could use AES::MODE_CBC
@@ -161,7 +161,7 @@ class AES implements DriverInterface
      *
      * @return string
      */
-    public function decrypt($cipherText = '')
+    public function decrypt($cipherText = ''): string
     {
         $cipher = new CryptAES('ctr');
         // could use AES::MODE_CBC

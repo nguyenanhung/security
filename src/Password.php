@@ -36,12 +36,12 @@ class Password implements ProjectInterface, PasswordInterface
     /**
      * Function createPassword
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:04
-     *
      * @param string $password
      *
-     * @return bool|false|string
+     * @return bool|string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 00:45
      */
     public static function createPassword($password = '')
     {
@@ -51,15 +51,15 @@ class Password implements ProjectInterface, PasswordInterface
     /**
      * Function verifyPassword
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:05
-     *
      * @param string $password
      * @param string $hash
      *
      * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 00:23
      */
-    public static function verifyPassword($password = '', $hash = '')
+    public static function verifyPassword($password = '', $hash = ''): bool
     {
         if (password_verify($password, $hash)) {
             return TRUE;
@@ -71,12 +71,12 @@ class Password implements ProjectInterface, PasswordInterface
     /**
      * Function passwordGetInfo
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:05
-     *
      * @param string $hash
      *
-     * @return array
+     * @return array|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 00:39
      */
     public static function passwordGetInfo($hash = '')
     {
@@ -86,13 +86,13 @@ class Password implements ProjectInterface, PasswordInterface
     /**
      * Function passwordReHash
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:09
-     *
      * @param string $password
      * @param string $hash
      *
-     * @return bool|false|string|null
+     * @return bool|string|null
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 00:35
      */
     public static function passwordReHash($password = '', $hash = '')
     {

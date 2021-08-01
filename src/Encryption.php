@@ -35,12 +35,12 @@ class Encryption implements ProjectInterface, EncryptionInterface
     /**
      * Function createKey
      *
-     * @author: 713uk13m <dev@nguyenanhung.com>
-     * @time  : 2018-12-03 16:20
-     *
      * @param int $length
      *
      * @return bool|string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 08/01/2021 01:51
      */
     public function createKey($length = 16)
     {
@@ -49,6 +49,11 @@ class Encryption implements ProjectInterface, EncryptionInterface
                 return random_bytes((int) $length);
             }
             catch (Exception $e) {
+                if (function_exists('log_message')) {
+                    log_message('error', $e->getMessage());
+                    log_message('error', $e->getTraceAsString());
+                }
+
                 return FALSE;
             }
         } elseif (defined('MCRYPT_DEV_URANDOM')) {
