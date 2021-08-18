@@ -19,16 +19,22 @@
         }
     ],
     "require": {
-        "ext-curl": "*",
-        "ext-json": "*",
+        "php": ">=7.0",
         "ext-openssl": "*",
-        "paragonie/sodium_compat": "^1.16",
+        "paragonie/sodium_compat": "^1.17",
         "ircmaxell/password-compat": "^1.0",
         "symfony/security-csrf": "^5.3 || ^4.4",
         "ezyang/htmlpurifier": "^4.13",
         "phpseclib/phpseclib": "^3.0",
         "phpseclib/mcrypt_compat": "^2.0",
-        "laminas/laminas-escaper": "^2.7"
+        "laminas/laminas-escaper": "^2.8"
+    },
+    "suggest": {
+        "ext-json": "Needed to support JSON",
+        "ext-mcrypt": "Needed to support mcrypt",
+        "ext-iconv": "Needed to support iconv",
+        "ext-openssl": "Needed to support openssl",
+        "ext-mbstring": "Needed to support mb_string"
     },
     "autoload": {
         "psr-4": {

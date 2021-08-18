@@ -44,7 +44,7 @@ interface HtmlSecurityInterface
      *
      * @see   http://htmlpurifier.org/live/configdoc/plain.html
      */
-    public function setConfig($config = []);
+    public function setConfig(array $config = []);
 
     /**
      * HTML Escape
@@ -54,9 +54,9 @@ interface HtmlSecurityInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/18/18 09:45
      *
-     * @param string $str Chuỗi đầu vào
+     * @param string $dirtyHtml Chuỗi đầu vào
      *
      * @return string Nội dung đầu ra sau khi đã lọc
      */
-    public function escape($str = '');
+    public function escape(string $dirtyHtml = '');
 }
