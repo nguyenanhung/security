@@ -28,7 +28,7 @@ interface DriverInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 21:26
      */
-    public function setKey($key = '');
+    public function setKey(string $key = '');
 
     /**
      * Function getKey
@@ -50,7 +50,7 @@ interface DriverInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 21:20
      */
-    public function encrypt($plainText = '');
+    public function encrypt(string $plainText = '');
 
     /**
      * Function decrypt
@@ -62,5 +62,5 @@ interface DriverInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 21:22
      */
-    public function decrypt($cipherText = '');
+    public function decrypt(string $cipherText = '');
 }

@@ -15,8 +15,7 @@ use HTMLPurifier;
 /**
  * Class HtmlSecurity
  *
- * Class HTML Security sử dụng HTML Purifier để làm bộ lọc
- * được custom lại để cho phù hợp với quá trình sử dụng
+ * Class HTML Security sử dụng HTML Purifier để làm bộ lọc được custom lại để cho phù hợp với quá trình sử dụng
  *
  * @see       http://htmlpurifier.org/docs
  *
@@ -28,6 +27,7 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
 {
     /** @var null|string Thư mục cache cho HTML Purifier */
     private $cachePath = NULL;
+
     /** @var null|array Mảng dữ liệu cấu hình cho HTML Purifier */
     private $config = NULL;
 
@@ -74,7 +74,7 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      *
      * @see   http://htmlpurifier.org/live/configdoc/plain.html
      */
-    public function setConfig($config = []): HtmlSecurity
+    public function setConfig(array $config = []): HtmlSecurity
     {
         $this->config = $config;
 
@@ -89,21 +89,29 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/18/18 09:45
      *
-     * @param string $str Chuỗi đầu vào
+     * @param string $dirtyHtml Chuỗi đầu vào
      *
      * @return string Nội dung đầu ra sau khi đã lọc
      */
-    public function escape($str = ''): string
+    public function escape(string $dirtyHtml = ''): string
     {
+        // Create Config
         $config = HTMLPurifier_Config::createDefault();
+
+        // Setup Cache.SerializerPath
         $config->set('Cache.SerializerPath', $this->cachePath);
+
+        // Setup External Config
         if (!empty($this->config) && is_array($this->config) && count($this->config) > 0) {
             foreach ($this->config as $key => $value) {
                 $config->set($key, $value);
             }
         }
-        $purifier = new HTMLPurifier($config);
 
-        return $purifier->purify($str);
+        // Init HTMLPurifier
+        $purifier  = new HTMLPurifier($config);
+        $cleanHtml = $purifier->purify($dirtyHtml);
+
+        return trim($cleanHtml);
     }
 }

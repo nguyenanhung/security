@@ -97,3 +97,34 @@ if (!function_exists('escape_url')) {
         return $escape->escapeUrl($string);
     }
 }
+if (!function_exists('remove_invisible_characters')) {
+    /**
+     * Remove Invisible Characters
+     *
+     * This prevents sandwiching null characters
+     * between ascii characters, like Java\0script.
+     *
+     * @param string
+     * @param bool
+     *
+     * @return    string
+     */
+    function remove_invisible_characters($str, $url_encoded = TRUE): string
+    {
+        $nonDisplay = array();
+        // every control character except newline (dec 10),
+        // carriage return (dec 13) and horizontal tab (dec 09)
+        if ($url_encoded) {
+            $nonDisplay[] = '/%0[0-8bcef]/i';    // url encoded 00-08, 11, 12, 14, 15
+            $nonDisplay[] = '/%1[0-9a-f]/i';    // url encoded 16-31
+            $nonDisplay[] = '/%7f/i';    // url encoded 127
+        }
+        $nonDisplay[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';    // 00-08, 11, 12, 14-31, 127
+        do {
+            $str = preg_replace($nonDisplay, '', $str, -1, $count);
+        }
+        while ($count);
+
+        return $str;
+    }
+}
