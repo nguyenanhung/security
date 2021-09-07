@@ -27,7 +27,7 @@
         "ezyang/htmlpurifier": "^4.13",
         "phpseclib/phpseclib": "^3.0",
         "phpseclib/mcrypt_compat": "^2.0",
-        "laminas/laminas-escaper": "^2.8"
+        "laminas/laminas-escaper": "^2.9"
     },
     "suggest": {
         "ext-json": "Needed to support JSON",
