@@ -18,8 +18,8 @@ namespace nguyenanhung\MySecurity;
  */
 interface ProjectInterface
 {
-    const VERSION       = '3.0.1';
-    const USE_BENCHMARK = TRUE;
+    const VERSION       = '3.0.2';
+    const USE_BENCHMARK = true;
 
     /**
      * Hàm lấy thông tin phiên bản Package
