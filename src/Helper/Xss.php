@@ -53,12 +53,12 @@ if (!class_exists('nguyenanhung\MySecurity\Helper\Xss')) {
          * harvested from examining vulnerabilities in other programs:
          * http://ha.ckers.org/xss.html
          *
-         * @param mixed    string or array
-         * @param bool
+         * @param mixed $str string or array
+         * @param bool  $is_image
          *
          * @return    string|array
          */
-        public static function xss_clean($str, $is_image = FALSE)
+        public static function xss_clean($str, $is_image = false)
         {
             /*
              * Is the string an array?
@@ -113,7 +113,7 @@ if (!class_exists('nguyenanhung\MySecurity\Helper\Xss')) {
              * NOTE: preg_replace was found to be amazingly slow here on
              * large blocks of data, so we use str_replace.
              */
-            if (strpos($str, "\t") !== FALSE) {
+            if (strpos($str, "\t") !== false) {
                 $str = str_replace("\t", ' ', $str);
             }
             /*
@@ -131,7 +131,7 @@ if (!class_exists('nguyenanhung\MySecurity\Helper\Xss')) {
              *
              * But it doesn't seem to pose a problem.
              */
-            if ($is_image === TRUE) {
+            if ($is_image === true) {
                 // Images have a tendency to have the PHP short opening and
                 // closing tags every so often so we skip those and only
                 // do the long opening tags.
@@ -252,12 +252,12 @@ if (!class_exists('nguyenanhung\MySecurity\Helper\Xss')) {
              * string post-removal of XSS, then it fails, as there was unwanted XSS
              * code found and removed/changed during processing.
              */
-            if ($is_image === TRUE) {
+            if ($is_image === true) {
                 if (($str == $converted_string)) {
-                    return TRUE;
-                } else {
-                    return FALSE;
+                    return true;
                 }
+
+                return false;
             }
 
             return $str;
@@ -274,7 +274,7 @@ if (!class_exists('nguyenanhung\MySecurity\Helper\Xss')) {
          *
          * @return string|string[]|null
          */
-        protected static function removeInvisibleCharacters($str, bool $url_encoded = TRUE)
+        protected static function removeInvisibleCharacters($str, bool $url_encoded = true)
         {
 
             $non_displayables = [];
@@ -400,7 +400,7 @@ if (!class_exists('nguyenanhung\MySecurity\Helper\Xss')) {
         {
             // All javascript event handlers (e.g. onload, onclick, onmouseover), style, and xmlns
             $evil_attributes = ['on\w*', 'style', 'xmlns', 'formaction'];
-            if ($is_image === TRUE) {
+            if ($is_image === true) {
                 /*
                  * Adobe Photoshop puts XML metadata into JFIF images,
                  * including namespacing, so we have to allow this for images.
@@ -450,7 +450,7 @@ if (!class_exists('nguyenanhung\MySecurity\Helper\Xss')) {
         protected static function entityDecode($arr, $charset = 'UTF-8'): string
         {
             $str = $arr[0];
-            if (stristr($str, '&') === FALSE) {
+            if (stristr($str, '&') === false) {
                 return $str;
             }
             $str = html_entity_decode($str, ENT_COMPAT, $charset);

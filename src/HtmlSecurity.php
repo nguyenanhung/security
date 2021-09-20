@@ -26,10 +26,10 @@ use HTMLPurifier;
 class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
 {
     /** @var null|string Thư mục cache cho HTML Purifier */
-    private $cachePath = NULL;
+    private $cachePath;
 
     /** @var null|array Mảng dữ liệu cấu hình cho HTML Purifier */
-    private $config = NULL;
+    private $config;
 
     use VersionTrait;
 
@@ -53,7 +53,7 @@ class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
      *
      * @return  $this
      */
-    public function setCachePath($cachePath = NULL): HtmlSecurity
+    public function setCachePath($cachePath = null): HtmlSecurity
     {
         $this->cachePath = $cachePath;
 

@@ -19,8 +19,6 @@ namespace nguyenanhung\MySecurity;
  */
 class Password implements ProjectInterface, PasswordInterface
 {
-    const ALGORITHM_DEFAULT = PASSWORD_DEFAULT;
-
     use VersionTrait;
 
     /**
@@ -45,7 +43,7 @@ class Password implements ProjectInterface, PasswordInterface
      */
     public static function createPassword($password = '')
     {
-        return password_hash($password, self::ALGORITHM_DEFAULT);
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 
     /**
@@ -62,10 +60,10 @@ class Password implements ProjectInterface, PasswordInterface
     public static function verifyPassword($password = '', $hash = ''): bool
     {
         if (password_verify($password, $hash)) {
-            return TRUE;
+            return true;
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
@@ -76,7 +74,7 @@ class Password implements ProjectInterface, PasswordInterface
      * @return array|null
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/01/2021 00:39
+     * @time     : 09/21/2021 19:32
      */
     public static function passwordGetInfo($hash = '')
     {
@@ -96,12 +94,10 @@ class Password implements ProjectInterface, PasswordInterface
      */
     public static function passwordReHash($password = '', $hash = '')
     {
-        if (self::verifyPassword($password, $hash)) {
-            if (password_needs_rehash($hash, self::ALGORITHM_DEFAULT)) {
-                return self::createPassword($password);
-            }
+        if (self::verifyPassword($password, $hash) && password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+            return self::createPassword($password);
         }
 
-        return NULL;
+        return null;
     }
 }
