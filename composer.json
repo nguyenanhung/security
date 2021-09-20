@@ -27,7 +27,7 @@
         "ezyang/htmlpurifier": "^4.13",
         "phpseclib/phpseclib": "^3.0",
         "phpseclib/mcrypt_compat": "^2.0",
-        "laminas/laminas-escaper": "^2.9"
+        "nguyenanhung/escape-helper": "^1.0"
     },
     "suggest": {
         "ext-json": "Needed to support JSON",
@@ -39,9 +39,6 @@
     "autoload": {
         "psr-4": {
             "nguyenanhung\\MySecurity\\": "src/"
-        },
-        "files": [
-            "helpers/output_escaping_helper.php"
-        ]
+        }
     }
 }
