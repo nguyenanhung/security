@@ -42,7 +42,7 @@ class Encryption implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/24/2021 04:19
      */
-    public function createKey(int $length = 16)
+    public function createKey(int $length = 32)
     {
         try {
             return random_bytes($length);

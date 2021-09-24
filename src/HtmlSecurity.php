@@ -74,7 +74,7 @@ class HtmlSecurity implements ProjectInterface
      *
      * @see   http://htmlpurifier.org/live/configdoc/plain.html
      */
-    public function setConfig(array $config = []): HtmlSecurity
+    public function setConfig(array $config = array()): HtmlSecurity
     {
         $this->config = $config;
 

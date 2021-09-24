@@ -27,7 +27,11 @@
         "ezyang/htmlpurifier": "^4.13",
         "phpseclib/phpseclib": "^3.0",
         "phpseclib/mcrypt_compat": "^2.0",
-        "nguyenanhung/escape-helper": "^2.0"
+        "nguyenanhung/escape-helper": "^2.0",
+        "nguyenanhung/math-helper": "^2.0"
+    },
+    "require-dev": {
+        "kint-php/kint": ">=3.0"
     },
     "suggest": {
         "ext-json": "Needed to support JSON",
@@ -39,6 +43,9 @@
     "autoload": {
         "psr-4": {
             "nguyenanhung\\MySecurity\\": "src/"
-        }
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
     }
 }

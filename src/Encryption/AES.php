@@ -124,7 +124,7 @@ class AES
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/24/2021 03:26
      */
-    public function getIv()
+    public function getIv(): string
     {
         return $this->iv;
     }
