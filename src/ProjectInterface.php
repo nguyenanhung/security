@@ -18,7 +18,7 @@ namespace nguyenanhung\MySecurity;
  */
 interface ProjectInterface
 {
-    const VERSION       = '3.0.5';
+    const VERSION       = '2.1.0';
     const USE_BENCHMARK = true;
 
     /**
@@ -29,5 +29,5 @@ interface ProjectInterface
      *
      * @return string Current Project Version, VD: 0.1.0
      */
-    public function getVersion(): string;
+    public function getVersion();
 }

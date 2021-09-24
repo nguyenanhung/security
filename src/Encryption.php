@@ -42,17 +42,25 @@ class Encryption implements ProjectInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/24/2021 04:19
      */
-    public function createKey(int $length = 32)
+    public function createKey($length = 32)
     {
-        try {
-            return random_bytes($length);
-        } catch (Exception $e) {
-            if (function_exists('log_message')) {
-                log_message('error', $e->getMessage());
-                log_message('error', $e->getTraceAsString());
-            }
+        if (function_exists('random_bytes')) {
+            try {
+                return random_bytes((int) $length);
+            } catch (Exception $e) {
+                if (function_exists('log_message')) {
+                    log_message('error', $e->getMessage());
+                    log_message('error', $e->getTraceAsString());
+                }
 
-            return false;
+                return false;
+            }
+        } elseif (function_exists('mcrypt_create_iv') && defined('MCRYPT_DEV_URANDOM')) {
+            return mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
         }
+        $isSecure = null;
+        $key      = openssl_random_pseudo_bytes($length, $isSecure);
+
+        return ($isSecure === true) ? $key : false;
     }
 }

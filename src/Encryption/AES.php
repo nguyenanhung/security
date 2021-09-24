@@ -49,7 +49,7 @@ class AES
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 04:06
      */
-    public function setKeyLength(int $keyLength = 128): AES
+    public function setKeyLength($keyLength = 128)
     {
         $this->keyLength = $keyLength;
 
@@ -64,7 +64,7 @@ class AES
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 21:52
      */
-    public function getKeyLength(): int
+    public function getKeyLength()
     {
         return $this->keyLength;
     }
@@ -79,7 +79,7 @@ class AES
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 21:57
      */
-    public function setKey(string $key = ''): AES
+    public function setKey($key = '')
     {
         $this->key = $key;
 
@@ -94,7 +94,7 @@ class AES
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 03:21
      */
-    public function getKey(): string
+    public function getKey()
     {
         return $this->key;
     }
@@ -109,7 +109,7 @@ class AES
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 04/20/2021 45:16
      */
-    public function setIv($iv): AES
+    public function setIv($iv)
     {
         $this->iv = $iv;
 
@@ -124,7 +124,7 @@ class AES
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/24/2021 03:26
      */
-    public function getIv(): string
+    public function getIv()
     {
         return $this->iv;
     }
@@ -139,7 +139,7 @@ class AES
      *
      * @return string
      */
-    public function encrypt(string $plainText = ''): string
+    public function encrypt($plainText = '')
     {
         $cipher = new CryptAES('ctr');
         // could use AES::MODE_CBC
@@ -164,7 +164,7 @@ class AES
      *
      * @return string
      */
-    public function decrypt(string $cipherText = ''): string
+    public function decrypt($cipherText = '')
     {
         $cipher = new CryptAES('ctr');
         // could use AES::MODE_CBC

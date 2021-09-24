@@ -25,10 +25,10 @@ use HTMLPurifier;
  */
 class HtmlSecurity implements ProjectInterface
 {
-    /** @var null|string Thư mục cache cho HTML Purifier */
+    /** @var string|null Thư mục cache cho HTML Purifier */
     private $cachePath;
 
-    /** @var null|array Mảng dữ liệu cấu hình cho HTML Purifier */
+    /** @var array|null Mảng dữ liệu cấu hình cho HTML Purifier */
     private $config;
 
     use VersionTrait;
@@ -49,11 +49,11 @@ class HtmlSecurity implements ProjectInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/18/18 09:44
      *
-     * @param null $cachePath
+     * @param string|null $cachePath
      *
      * @return  $this
      */
-    public function setCachePath($cachePath = null): HtmlSecurity
+    public function setCachePath($cachePath = null)
     {
         $this->cachePath = $cachePath;
 
@@ -74,7 +74,7 @@ class HtmlSecurity implements ProjectInterface
      *
      * @see   http://htmlpurifier.org/live/configdoc/plain.html
      */
-    public function setConfig(array $config = array()): HtmlSecurity
+    public function setConfig($config = array())
     {
         $this->config = $config;
 
@@ -93,7 +93,7 @@ class HtmlSecurity implements ProjectInterface
      *
      * @return string Nội dung đầu ra sau khi đã lọc
      */
-    public function escape(string $dirtyHtml = ''): string
+    public function escape($dirtyHtml = '')
     {
         // Create Config
         $config = HTMLPurifier_Config::createDefault();

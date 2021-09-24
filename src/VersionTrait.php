@@ -27,7 +27,7 @@ trait VersionTrait
      *
      * @return string
      */
-    public function getVersion(): string
+    public function getVersion()
     {
         return self::VERSION;
     }

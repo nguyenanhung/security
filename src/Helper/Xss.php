@@ -59,7 +59,7 @@ class Xss
      * @return array|bool|string
      * @throws \Exception
      */
-    public static function xss_clean($str, bool $is_image = false)
+    public static function xss_clean($str, $is_image = false)
     {
         /*
          * Is the string an array?
@@ -271,7 +271,7 @@ class Xss
      *
      * @return string|string[]|null
      */
-    protected static function removeInvisibleCharacters($str, bool $url_encoded = true)
+    protected static function removeInvisibleCharacters($str, $url_encoded = true)
     {
 
         $non_displayables = [];
@@ -306,12 +306,12 @@ class Xss
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/24/2021 06:16
      */
-    protected static function validateEntities($str): string
+    protected static function validateEntities($str)
     {
         /*
          * Protect GET variables in URLs
          */
-        $xss_hash        = md5(time() + random_int(0, 1999999999));
+        $xss_hash        = md5(time() + mt_rand(0, 1999999999));
         $entitiesPattern = '|\&([a-z\_0-9\-]+)\=([a-z\_0-9\-]+)|i';
         $str             = preg_replace($entitiesPattern, $xss_hash . "\\1=\\2", $str);
         /*
@@ -346,7 +346,7 @@ class Xss
      *
      * @return    string
      */
-    protected static function doNeverAllowed($str): string
+    protected static function doNeverAllowed($str)
     {
         /**
          * List of never allowed strings
@@ -397,7 +397,7 @@ class Xss
      *
      * @return string The string with the evil attributes removed
      */
-    protected static function removeEvilAttributes(string $str, bool $is_image): string
+    protected static function removeEvilAttributes($str, $is_image)
     {
         // All javascript event handlers (e.g. onload, onclick, onmouseover), style, and xmlns
         $evil_attributes = ['on\w*', 'style', 'xmlns', 'formaction'];
@@ -448,7 +448,7 @@ class Xss
      *
      * @return    string
      */
-    protected static function entityDecode($arr, $charset = 'UTF-8'): string
+    protected static function entityDecode($arr, $charset = 'UTF-8')
     {
         $str = $arr[0];
         if (strpos($str, '&') === false) {
@@ -469,7 +469,7 @@ class Xss
      *
      * @return    string
      */
-    protected static function filterAttributes($str): string
+    protected static function filterAttributes($str)
     {
         $out          = '';
         $regexPattern = '#\s*[a-z\-]+\s*=\s*(\042|\047)([^\\1]*?)\\1#is';
