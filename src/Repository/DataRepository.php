@@ -9,7 +9,9 @@
 
 namespace nguyenanhung\MySecurity\Repository;
 
-use nguyenanhung\MySecurity\Interfaces\ProjectInterface;
+
+use nguyenanhung\MySecurity\ProjectInterface;
+use nguyenanhung\MySecurity\VersionTrait;
 
 /**
  * Class DataRepository
@@ -20,21 +22,11 @@ use nguyenanhung\MySecurity\Interfaces\ProjectInterface;
  */
 class DataRepository implements ProjectInterface
 {
+    use VersionTrait;
+
     const CONFIG_PATH = 'config';
     const CONFIG_EXT  = '.php';
 
-    /**
-     * Hàm lấy thông tin phiên bản Package
-     *
-     * @author  : 713uk13m <dev@nguyenanhung.com>
-     * @time    : 10/13/18 15:12
-     *
-     * @return mixed|string Current Project Version, VD: 0.1.0
-     */
-    public function getVersion()
-    {
-        return self::VERSION;
-    }
 
     /**
      * Hàm lấy nội dung config được quy định trong thư mục config
@@ -46,7 +38,7 @@ class DataRepository implements ProjectInterface
      *
      * @return array|mixed
      */
-    public static function getData($configName)
+    public static function getData(string $configName)
     {
         $path = __DIR__ . DIRECTORY_SEPARATOR . self::CONFIG_PATH . DIRECTORY_SEPARATOR . $configName . self::CONFIG_EXT;
         if (is_file($path) && file_exists($path)) {
@@ -66,7 +58,7 @@ class DataRepository implements ProjectInterface
      *
      * @return array|mixed
      */
-    public static function getDataContent($filename)
+    public static function getDataContent(string $filename)
     {
         if (is_file($filename) && file_exists($filename)) {
             return require $filename;

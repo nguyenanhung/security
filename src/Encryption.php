@@ -18,7 +18,7 @@ use Exception;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class Encryption implements ProjectInterface, EncryptionInterface
+class Encryption implements ProjectInterface
 {
     use VersionTrait;
 
@@ -37,30 +37,22 @@ class Encryption implements ProjectInterface, EncryptionInterface
      *
      * @param int $length
      *
-     * @return bool|string
+     * @return false|string
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 08/01/2021 01:51
+     * @time     : 09/24/2021 04:19
      */
-    public function createKey($length = 16)
+    public function createKey(int $length = 16)
     {
-        if (function_exists('random_bytes')) {
-            try {
-                return random_bytes((int) $length);
-            } catch (Exception $e) {
-                if (function_exists('log_message')) {
-                    log_message('error', $e->getMessage());
-                    log_message('error', $e->getTraceAsString());
-                }
-
-                return false;
+        try {
+            return random_bytes($length);
+        } catch (Exception $e) {
+            if (function_exists('log_message')) {
+                log_message('error', $e->getMessage());
+                log_message('error', $e->getTraceAsString());
             }
-        } elseif (defined('MCRYPT_DEV_URANDOM') && function_exists('mcrypt_create_iv')) {
-            return mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
-        }
-        $isSecure = null;
-        $key      = openssl_random_pseudo_bytes($length, $isSecure);
 
-        return ($isSecure === true) ? $key : false;
+            return false;
+        }
     }
 }

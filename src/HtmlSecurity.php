@@ -23,7 +23,7 @@ use HTMLPurifier;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class HtmlSecurity implements ProjectInterface, HtmlSecurityInterface
+class HtmlSecurity implements ProjectInterface
 {
     /** @var null|string Thư mục cache cho HTML Purifier */
     private $cachePath;

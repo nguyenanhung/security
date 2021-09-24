@@ -25,9 +25,9 @@ trait VersionTrait
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 2018-12-03 16:02
      *
-     * @return mixed|string
+     * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
         return self::VERSION;
     }

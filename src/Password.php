@@ -17,7 +17,7 @@ namespace nguyenanhung\MySecurity;
  * @author    713uk13m <dev@nguyenanhung.com>
  * @copyright 713uk13m <dev@nguyenanhung.com>
  */
-class Password implements ProjectInterface, PasswordInterface
+class Password implements ProjectInterface
 {
     use VersionTrait;
 
@@ -41,7 +41,7 @@ class Password implements ProjectInterface, PasswordInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 00:45
      */
-    public static function createPassword($password = '')
+    public static function createPassword(string $password = '')
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
@@ -57,7 +57,7 @@ class Password implements ProjectInterface, PasswordInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 00:23
      */
-    public static function verifyPassword($password = '', $hash = ''): bool
+    public static function verifyPassword(string $password = '', string $hash = ''): bool
     {
         if (password_verify($password, $hash)) {
             return true;
@@ -76,7 +76,7 @@ class Password implements ProjectInterface, PasswordInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 09/21/2021 19:32
      */
-    public static function passwordGetInfo($hash = '')
+    public static function passwordGetInfo(string $hash = '')
     {
         return password_get_info($hash);
     }
@@ -92,7 +92,7 @@ class Password implements ProjectInterface, PasswordInterface
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 08/01/2021 00:35
      */
-    public static function passwordReHash($password = '', $hash = '')
+    public static function passwordReHash(string $password = '', string $hash = '')
     {
         if (self::verifyPassword($password, $hash) && password_needs_rehash($hash, PASSWORD_DEFAULT)) {
             return self::createPassword($password);
