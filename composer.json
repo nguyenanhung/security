@@ -19,11 +19,11 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.0",
         "ext-openssl": "*",
         "paragonie/sodium_compat": "^1.17",
         "ircmaxell/password-compat": "^1.0",
-        "symfony/security-csrf": "^5.3 || ^4.1",
+        "symfony/security-csrf": "^5.3 || ^4.4 || ^3.4",
         "ezyang/htmlpurifier": "^4.13",
         "phpseclib/phpseclib": "^3.0",
         "phpseclib/mcrypt_compat": "^2.0",
