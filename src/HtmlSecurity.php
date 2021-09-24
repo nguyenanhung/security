@@ -49,11 +49,11 @@ class HtmlSecurity implements ProjectInterface
      * @author: 713uk13m <dev@nguyenanhung.com>
      * @time  : 10/18/18 09:44
      *
-     * @param null $cachePath
+     * @param string|null $cachePath
      *
      * @return  $this
      */
-    public function setCachePath($cachePath = null): HtmlSecurity
+    public function setCachePath(string $cachePath = null): HtmlSecurity
     {
         $this->cachePath = $cachePath;
 
