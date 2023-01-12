@@ -27,6 +27,7 @@
         "ezyang/htmlpurifier": "^4.13",
         "phpseclib/phpseclib": "^3.0",
         "phpseclib/mcrypt_compat": "^2.0",
+        "voku/anti-xss": ">=1.0",
         "nguyenanhung/escape-helper": "^2.0",
         "nguyenanhung/math-helper": "^2.0",
         "nguyenanhung/htmlawed": "^1.2"
