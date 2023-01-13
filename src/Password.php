@@ -22,16 +22,6 @@ class Password implements ProjectInterface
     use VersionTrait;
 
     /**
-     * Password constructor.
-     *
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Function createPassword
      *
      * @param string $password

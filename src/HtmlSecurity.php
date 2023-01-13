@@ -26,21 +26,30 @@ use HTMLPurifier;
 class HtmlSecurity implements ProjectInterface
 {
     /** @var null|string Thư mục cache cho HTML Purifier */
-    private $cachePath;
+    protected $cachePath;
 
     /** @var null|array Mảng dữ liệu cấu hình cho HTML Purifier */
-    private $config;
+    protected $config;
 
     use VersionTrait;
 
     /**
      * HtmlSecurity constructor.
      *
+     * @param string|null $cachePath
+     * @param array|null  $config
+     *
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      */
-    public function __construct()
+    public function __construct(string $cachePath = '', array $config = array())
     {
+        if (!empty($cachePath)) {
+            $this->cachePath = $cachePath;
+        }
+        if (!empty($config)) {
+            $this->config = $config;
+        }
     }
 
     /**
@@ -109,7 +118,7 @@ class HtmlSecurity implements ProjectInterface
         }
 
         // Init HTMLPurifier
-        $purifier  = new HTMLPurifier($config);
+        $purifier = new HTMLPurifier($config);
         $cleanHtml = $purifier->purify($dirtyHtml);
 
         return trim($cleanHtml);
