@@ -25,7 +25,7 @@ class DataRepository implements ProjectInterface
     use VersionTrait;
 
     const CONFIG_PATH = 'config';
-    const CONFIG_EXT  = '.php';
+    const CONFIG_EXT = '.php';
 
 
     /**

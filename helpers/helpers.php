@@ -18,8 +18,24 @@ if (!function_exists('xssValidation')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 30/07/2022 57:32
      */
-    function xssValidation($value)
+    function xssValidation($value): bool
     {
         return \nguyenanhung\MySecurity\Helper\Xss::xssValidation($value);
+    }
+}
+if (!function_exists('xss_validation')) {
+    /**
+     * Function xss_validation
+     *
+     * @param $value
+     *
+     * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 12/02/2023 08:05
+     */
+    function xss_validation($value): bool
+    {
+        return \nguyenanhung\MySecurity\Helper\Xss::xss_validation($value);
     }
 }
