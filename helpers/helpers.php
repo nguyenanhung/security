@@ -18,7 +18,7 @@ if (!function_exists('xssValidation')) {
      * @copyright: 713uk13m <dev@nguyenanhung.com>
      * @time     : 30/07/2022 57:32
      */
-    function xssValidation($value)
+    function xssValidation($value): bool
     {
         return \nguyenanhung\MySecurity\Helper\Xss::xssValidation($value);
     }

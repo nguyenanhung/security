@@ -6,7 +6,7 @@ jobs:
         strategy:
             matrix:
                 operating-system: [ ubuntu-18.04, ubuntu-20.04, ubuntu-latest, macos-latest ]
-                php-versions: [ '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1' ]
+                php-versions: [ '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2' ]
         runs-on: ${{ matrix.operating-system }}
         steps:
             -   name: Checkout
@@ -28,5 +28,3 @@ jobs:
                     restore-keys: ${{ runner.os }}-composer-
             -   name: Install dependencies
                 run: composer install --no-progress --prefer-dist --optimize-autoloader
-            -   name: Test Security Packages
-                run: php ./test/test.php

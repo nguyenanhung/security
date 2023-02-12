@@ -25,13 +25,13 @@ use HTMLPurifier;
  */
 class HtmlSecurity implements ProjectInterface
 {
+    use VersionTrait;
+
     /** @var null|string Thư mục cache cho HTML Purifier */
     protected $cachePath;
 
     /** @var null|array Mảng dữ liệu cấu hình cho HTML Purifier */
     protected $config;
-
-    use VersionTrait;
 
     /**
      * HtmlSecurity constructor.
