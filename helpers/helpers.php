@@ -93,7 +93,7 @@ if (!function_exists('_xss_clean_')) {
         return \nguyenanhung\MySecurity\Helper\Xss::xss_clean($value, $is_image);
     }
 }
-if (!function_exists('_forceXssClean_')) {
+if (!function_exists('_xssClean_')) {
     /**
      * Function _xssClean_
      *
