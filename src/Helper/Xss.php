@@ -398,7 +398,15 @@ class Xss
             'file',
             'file_get_contents',
             'readfile',
-            'unlink'
+            'unlink',
+            'alert',
+            'prompt',
+            'confirm',
+            'execScript',
+            'setTimeout',
+            'setInterval',
+            'setImmediate',
+            'expression',
         );
         if (preg_match('#(' . implode('|', $disableCommands) . ')(\s*)\((.*?)\)#si', $value)) {
             return false;
@@ -523,12 +531,31 @@ class Xss
             '<!--'            => '&lt;!--',
             '-->'             => '--&gt;',
             '<![CDATA['       => '&lt;![CDATA[',
-            '<comment>'       => '&lt;comment&gt;'
+            '<comment>'       => '&lt;comment&gt;',
+            '(document).cookie' => '[removed]',
+            '(document).write'  => '[removed]',
+            '.appendChild'      => '[removed]',
+            '<?'                => '&lt;?',
+            '?>'                => '?&gt;',
+            '<!ENTITY'          => '&lt;!ENTITY',
+            '<!DOCTYPE'         => '&lt;!DOCTYPE',
+            '<!ATTLIST'         => '&lt;!ATTLIST',
         ];
         /**
          * List of never allowed regex replacement
          */
         $never_allowed_regex = [
+            // default javascript
+            '(\(?:?document\)?|\(?:?window\)?(?:\.document)?)\.(?:location|on\w*)',
+            // data-attribute + base64
+            "([\"'])?data\s*:\s*(?!image\s*\/\s*(?!svg.*?))[^\1]*?base64[^\1]*?,[^\1]*?\1?",
+            // old IE, old Netscape
+            'expression\s*(?:\(|&\#40;)',
+            // src="js"
+            'src\=(?<wrapper>[\'|"]).*\.js(?:\g{wrapper})',
+            // comments
+            '<!--(.*)-->',
+            '<!--',
             'javascript\s*:',
             'expression\s*(\(|&\#40;)', // CSS and IE
             'vbscript\s*:', // IE, surprise!
