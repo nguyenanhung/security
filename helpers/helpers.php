@@ -20,6 +20,22 @@ if (!function_exists('xssValidation')) {
      */
     function xssValidation($value)
     {
+        return \nguyenanhung\MySecurity\Helper\Xss::xssValidation($value);
+    }
+}
+if (!function_exists('xss_validation')) {
+    /**
+     * Function xss_validation
+     *
+     * @param $value
+     *
+     * @return bool
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 12/02/2023 05:50
+     */
+    function xss_validation($value)
+    {
         return \nguyenanhung\MySecurity\Helper\Xss::xss_validation($value);
     }
 }
