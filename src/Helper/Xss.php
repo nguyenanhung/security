@@ -9,7 +9,6 @@
 
 namespace nguyenanhung\MySecurity\Helper;
 
-
 /**
  * Class Xss
  *
@@ -146,7 +145,7 @@ class Xss
          * This corrects words like:  j a v a s c r i p t
          * These words are compacted back to their correct state.
          */
-        $words = [
+        $words = array(
             'javascript',
             'expression',
             'vbscript',
@@ -158,7 +157,7 @@ class Xss
             'write',
             'cookie',
             'window'
-        ];
+        );
         foreach ($words as $word) {
             $temp = '';
             for ($i = 0, $wordlen = strlen($word); $i < $wordlen; $i++) {
@@ -436,7 +435,7 @@ class Xss
     public static function removeInvisibleCharacters($str, $url_encoded = true)
     {
 
-        $non_displayables = [];
+        $non_displayables = array();
 
         // every control character except newline (dec 10)
         // carriage return (dec 13), and horizontal tab (dec 09)
@@ -513,7 +512,7 @@ class Xss
         /**
          * List of never allowed strings
          */
-        $never_allowed_str = [
+        $never_allowed_str = array(
             'document.cookie' => '[removed]',
             'document.write'  => '[removed]',
             '.parentNode'     => '[removed]',
@@ -523,18 +522,37 @@ class Xss
             '<!--'            => '&lt;!--',
             '-->'             => '--&gt;',
             '<![CDATA['       => '&lt;![CDATA[',
-            '<comment>'       => '&lt;comment&gt;'
-        ];
+            '<comment>'       => '&lt;comment&gt;',
+            '(document).cookie' => '[removed]',
+            '(document).write'  => '[removed]',
+            '.appendChild'      => '[removed]',
+            '<?'                => '&lt;?',
+            '?>'                => '?&gt;',
+            '<!ENTITY'          => '&lt;!ENTITY',
+            '<!DOCTYPE'         => '&lt;!DOCTYPE',
+            '<!ATTLIST'         => '&lt;!ATTLIST',
+        );
         /**
          * List of never allowed regex replacement
          */
-        $never_allowed_regex = [
+        $never_allowed_regex = array(
+            // default javascript
+            '(\(?:?document\)?|\(?:?window\)?(?:\.document)?)\.(?:location|on\w*)',
+            // data-attribute + base64
+            "([\"'])?data\s*:\s*(?!image\s*\/\s*(?!svg.*?))[^\1]*?base64[^\1]*?,[^\1]*?\1?",
+            // old IE, old Netscape
+            'expression\s*(?:\(|&\#40;)',
+            // src="js"
+            'src\=(?<wrapper>[\'|"]).*\.js(?:\g{wrapper})',
+            // comments
+            '<!--(.*)-->',
+            '<!--',
             'javascript\s*:',
             'expression\s*(\(|&\#40;)', // CSS and IE
             'vbscript\s*:', // IE, surprise!
             'Redirect\s+302',
             "([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?"
-        ];
+        );
         $str = str_replace(array_keys($never_allowed_str), $never_allowed_str, $str);
         foreach ($never_allowed_regex as $regex) {
             $str = preg_replace('#' . $regex . '#is', '[removed]', $str);
@@ -562,7 +580,7 @@ class Xss
     protected static function removeEvilAttributes($str, $is_image)
     {
         // All javascript event handlers (e.g. onload, onclick, onmouseover), style, and xmlns
-        $evil_attributes = ['on\w*', 'style', 'xmlns', 'formaction'];
+        $evil_attributes = array('on\w*', 'style', 'xmlns', 'formaction');
         if ($is_image === true) {
             /*
              * Adobe Photoshop puts XML metadata into JFIF images,
@@ -572,7 +590,7 @@ class Xss
         }
         do {
             $count = 0;
-            $attribs = [];
+            $attribs = array();
             // find occurrences of illegal attribute strings without quotes
             preg_match_all('/(' . implode('|', $evil_attributes) . ')\s*=\s*([^\s>]*)/is', $str, $matches, PREG_SET_ORDER);
             foreach ($matches as $attr) {
