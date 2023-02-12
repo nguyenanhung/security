@@ -25,7 +25,7 @@ class DataRepository implements ProjectInterface
     use VersionTrait;
 
     const CONFIG_PATH = 'config';
-    const CONFIG_EXT  = '.php';
+    const CONFIG_EXT = '.php';
 
 
     /**
@@ -45,7 +45,7 @@ class DataRepository implements ProjectInterface
             return require $path;
         }
 
-        return [];
+        return array();
     }
 
     /**
@@ -64,6 +64,6 @@ class DataRepository implements ProjectInterface
             return require $filename;
         }
 
-        return [];
+        return array();
     }
 }

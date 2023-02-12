@@ -25,13 +25,13 @@ use HTMLPurifier;
  */
 class HtmlSecurity implements ProjectInterface
 {
+    use VersionTrait;
+
     /** @var string|null Thư mục cache cho HTML Purifier */
-    private $cachePath;
+    protected $cachePath;
 
     /** @var array|null Mảng dữ liệu cấu hình cho HTML Purifier */
-    private $config;
-
-    use VersionTrait;
+    protected $config;
 
     /**
      * HtmlSecurity constructor.
@@ -109,7 +109,7 @@ class HtmlSecurity implements ProjectInterface
         }
 
         // Init HTMLPurifier
-        $purifier  = new HTMLPurifier($config);
+        $purifier = new HTMLPurifier($config);
         $cleanHtml = $purifier->purify($dirtyHtml);
 
         return trim($cleanHtml);

@@ -59,7 +59,7 @@ class Encryption implements ProjectInterface
             return mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
         }
         $isSecure = null;
-        $key      = openssl_random_pseudo_bytes($length, $isSecure);
+        $key = openssl_random_pseudo_bytes($length, $isSecure);
 
         return ($isSecure === true) ? $key : false;
     }

@@ -179,4 +179,3 @@ class AES
         return $cipher->decrypt(base64_decode($cipherText));
     }
 }
-
