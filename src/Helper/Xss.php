@@ -100,7 +100,7 @@ class Xss
         $str = preg_replace_callback($entitiesRegex, static function($match) {
             return str_replace(['>', '<', '\\'], ['&gt;', '&lt;', '\\\\'], $match[0]);
         },                           $str);
-        $str = preg_replace_callback("/<\w+.*?(?=>|<|$)/si", 'self::entity_decode', $str);
+        $str = preg_replace_callback("/<\w+.*?(?=>|<|$)/si", 'self::entityDecode', $str);
         /*
          * Remove Invisible Characters Again!
          */
