@@ -52,7 +52,6 @@ class Password implements ProjectInterface
         if (password_verify($password, $hash)) {
             return true;
         }
-
         return false;
     }
 
@@ -87,7 +86,6 @@ class Password implements ProjectInterface
         if (self::verifyPassword($password, $hash) && password_needs_rehash($hash, PASSWORD_DEFAULT)) {
             return self::createPassword($password);
         }
-
         return null;
     }
 }

@@ -27,7 +27,6 @@ class DataRepository implements ProjectInterface
     const CONFIG_PATH = 'config';
     const CONFIG_EXT = '.php';
 
-
     /**
      * Hàm lấy nội dung config được quy định trong thư mục config
      *
@@ -44,7 +43,6 @@ class DataRepository implements ProjectInterface
         if (is_file($path) && file_exists($path)) {
             return require $path;
         }
-
         return [];
     }
 
@@ -63,7 +61,6 @@ class DataRepository implements ProjectInterface
         if (is_file($filename) && file_exists($filename)) {
             return require $filename;
         }
-
         return [];
     }
 }

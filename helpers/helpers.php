@@ -52,9 +52,7 @@ if (!function_exists('_force_xss_clean_')) {
      */
     function _force_xss_clean_($value)
     {
-        $antiXSS = new \voku\helper\AntiXSS();
-
-        return $antiXSS->xss_clean($value);
+        return (new \voku\helper\AntiXSS())->xss_clean($value);
     }
 }
 if (!function_exists('_forceXssClean_')) {
@@ -70,9 +68,7 @@ if (!function_exists('_forceXssClean_')) {
      */
     function _forceXssClean_($value)
     {
-        $antiXSS = new \voku\helper\AntiXSS();
-
-        return $antiXSS->xss_clean($value);
+        return (new \voku\helper\AntiXSS())->xss_clean($value);
     }
 }
 if (!function_exists('_xss_clean_')) {
