@@ -52,7 +52,6 @@ class AES
     public function setKeyLength(int $keyLength = 128): AES
     {
         $this->keyLength = $keyLength;
-
         return $this;
     }
 
@@ -82,7 +81,6 @@ class AES
     public function setKey(string $key = ''): AES
     {
         $this->key = $key;
-
         return $this;
     }
 
@@ -112,7 +110,6 @@ class AES
     public function setIv($iv): AES
     {
         $this->iv = $iv;
-
         return $this;
     }
 
@@ -179,4 +176,3 @@ class AES
         return $cipher->decrypt(base64_decode($cipherText));
     }
 }
-

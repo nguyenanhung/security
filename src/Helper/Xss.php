@@ -72,12 +72,15 @@ class Xss
 
             return $str;
         }
+
         /*
          * Remove Invisible Characters
          */
         $str = self::removeInvisibleCharacters($str);
+
         // Validate Entities in URLs
         $str = self::validateEntities($str);
+
         /*
          * URL Decode
          *
@@ -89,6 +92,7 @@ class Xss
          *
          */
         $str = rawurldecode($str);
+
         /*
          * Convert character entities to ASCII
          *
@@ -100,12 +104,14 @@ class Xss
         $entitiesRegex = "/[a-z]+=([\'\"]).*?\\1/si";
         $str = preg_replace_callback($entitiesRegex, static function($match) {
             return str_replace(['>', '<', '\\'], ['&gt;', '&lt;', '\\\\'], $match[0]);
-        },                           $str);
+        }, $str);
         $str = preg_replace_callback("/<\w+.*?(?=>|<|$)/si", 'self::entityDecode', $str);
+
         /*
          * Remove Invisible Characters Again!
          */
         $str = self::removeInvisibleCharacters($str);
+
         /*
          * Convert all tabs to spaces
          *
@@ -114,15 +120,18 @@ class Xss
          * NOTE: preg_replace was found to be amazingly slow here on
          * large blocks of data, so we use str_replace.
          */
-        if (strpos($str, "\t") !== false) {
+        if (mb_strpos($str, "\t") !== false) {
             $str = str_replace("\t", ' ', $str);
         }
+
         /*
          * Capture converted string for later comparison
          */
         $converted_string = $str;
+
         // Remove Strings that are never allowed
         $str = self::doNeverAllowed($str);
+
         /*
          * Makes PHP tags safe
          *
@@ -140,6 +149,7 @@ class Xss
         } else {
             $str = str_replace(['<?', '?' . '>'], ['&lt;?', '?&gt;'], $str);
         }
+
         /*
          * Compact any exploded words
          *
@@ -161,15 +171,16 @@ class Xss
         ];
         foreach ($words as $word) {
             $temp = '';
-            for ($i = 0, $wordlen = strlen($word); $i < $wordlen; $i++) {
+            for ($i = 0, $wordlen = mb_strlen($word); $i < $wordlen; $i++) {
                 $temp .= $word[$i] . "\s*";
             }
             // We only want to do this when it is followed by a non-word character
             // That way valid stuff like "dealer to" does not become "dealerto"
-            $str = preg_replace_callback('#(' . substr($temp, 0, -3) . ')(\W)#is', static function($matches) {
+            $str = preg_replace_callback('#(' . mb_substr($temp, 0, -3) . ')(\W)#is', static function($matches) {
                 return preg_replace('/\s+/s', '', $matches[1]) . $matches[2];
-            },                           $str);
+            }, $str);
         }
+
         /*
          * Remove disallowed Javascript in links or img tags
          * We used to do some version comparisons and use of stripos for PHP5,
@@ -181,16 +192,14 @@ class Xss
             if (preg_match("/<a/i", $str)) {
                 $str = preg_replace_callback("#<a\s+([^>]*?)(>|$)#si", static function($match) {
                     $htmlTagPattern = '#href=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|data\s*:)#si';
-
                     return str_replace($match[1], preg_replace($htmlTagPattern, '', self::filterAttributes(str_replace(['<', '>'], '', $match[1]))), $match[0]);
-                },                           $str);
+                }, $str);
             }
             if (preg_match("/<img/i", $str)) {
                 $str = preg_replace_callback("#<img\s+([^>]*?)(\s?/?>|$)#si", static function($match) {
                     $htmlTagPattern = '#src=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)#si';
-
                     return str_replace($match[1], preg_replace($htmlTagPattern, '', self::filterAttributes(str_replace(['<', '>'], '', $match[1]))), $match[0]);
-                },                           $str);
+                }, $str);
             }
             if (preg_match("/script/i", $str) || preg_match("/xss/i", $str)) {
                 $htmlTagPattern = "#<(/*)(script|xss)(.*?)\>#si";
@@ -199,8 +208,10 @@ class Xss
         }
         while ($original !== $str);
         unset($original);
+
         // Remove evil attributes such as style, onclick and xmlns
         $str = self::removeEvilAttributes($str, $is_image);
+
         /*
          * Sanitize naughty HTML elements
          *
@@ -219,7 +230,8 @@ class Xss
             $str .= str_replace(['>', '<'], ['&gt;', '&lt;'], $matches[4]);
 
             return $str;
-        },                           $str);
+        }, $str);
+
         /*
          * Sanitize naughty scripting elements
          *
@@ -233,10 +245,12 @@ class Xss
          * Becomes:		eval&#40;'some code'&#41;
          */
         $str = preg_replace('#(alert|cmd|passthru|eval|exec|expression|system|fopen|fsockopen|file|file_get_contents|readfile|unlink)(\s*)\((.*?)\)#si', "\\1\\2&#40;\\3&#41;", $str);
+
         // Final clean up
         // This adds a bit of extra precaution in case
         // something got through the above filters
         $str = self::doNeverAllowed($str);
+
         /*
          * Images are Handled in a Special Way
          * - Essentially, we want to know that after all of the character
@@ -251,7 +265,7 @@ class Xss
         }
 
         return $str;
-    }//xss_clean
+    }
 
     /**
      * Function xssValidation
@@ -443,7 +457,6 @@ class Xss
      */
     public static function removeInvisibleCharacters($str, bool $url_encoded = true)
     {
-
         $non_displayables = [];
 
         // every control character except newline (dec 10)
@@ -484,6 +497,7 @@ class Xss
         $xss_hash = md5(time() + random_int(0, 1999999999));
         $entitiesPattern = '|\&([a-z\_0-9\-]+)\=([a-z\_0-9\-]+)|i';
         $str = preg_replace($entitiesPattern, $xss_hash . "\\1=\\2", $str);
+
         /*
          * Validate standard character entities
          *
@@ -492,6 +506,7 @@ class Xss
          *
          */
         $str = preg_replace('#(&\#?[0-9a-z]{2,})([\x00-\x20])*;?#i', "\\1;\\2", $str);
+
         /*
          * Validate UTF16 two byte encoding (x00)
          *
@@ -503,9 +518,8 @@ class Xss
         /*
          * Un-Protect GET variables in URLs
          */
-
         return str_replace($xss_hash, '&', $str);
-    }//validate_entities
+    }
 
     /**
      * Do Never Allowed
@@ -541,6 +555,7 @@ class Xss
             '<!DOCTYPE'         => '&lt;!DOCTYPE',
             '<!ATTLIST'         => '&lt;!ATTLIST',
         ];
+
         /**
          * List of never allowed regex replacement
          */
@@ -568,7 +583,7 @@ class Xss
         }
 
         return $str;
-    }//do_never_allowed
+    }
 
     /**
      * Remove Evil HTML Attributes (like evenhandlers and style)
@@ -597,20 +612,24 @@ class Xss
              */
             unset($evil_attributes[array_search('xmlns', $evil_attributes)]);
         }
+
         do {
             $count = 0;
             $attribs = [];
+
             // find occurrences of illegal attribute strings without quotes
             preg_match_all('/(' . implode('|', $evil_attributes) . ')\s*=\s*([^\s>]*)/is', $str, $matches, PREG_SET_ORDER);
             foreach ($matches as $attr) {
                 $attribs[] = preg_quote($attr[0], '/');
             }
+
             // find occurrences of illegal attribute strings with quotes (042 and 047 are octal quotes)
             $regexPattern = "/(" . implode('|', $evil_attributes) . ")\s*=\s*(\042|\047)([^\\2]*?)(\\2)/is";
             preg_match_all($regexPattern, $str, $matches, PREG_SET_ORDER);
             foreach ($matches as $attr) {
                 $attribs[] = preg_quote($attr[0], '/');
             }
+
             // replace illegal attribute strings that are inside an html tag
             if (count($attribs) > 0) {
                 $str = preg_replace("/<(\/?[^><]+?)([^A-Za-z<>\-])(.*?)(" . implode('|', $attribs) . ")(.*?)([\s><])([><]*)/i", '<$1 $3$5$6$7', $str, -1, $count);
@@ -619,7 +638,7 @@ class Xss
         while ($count);
 
         return $str;
-    }//remove_evil_attributes
+    }
 
     /**
      * HTML Entities Decode
@@ -640,14 +659,13 @@ class Xss
     protected static function entityDecode($arr, $charset = 'UTF-8'): string
     {
         $str = $arr[0];
-        if (strpos($str, '&') === false) {
+        if (mb_strpos($str, '&') === false) {
             return $str;
         }
         $str = html_entity_decode($str, ENT_COMPAT, $charset);
         $str = preg_replace_callback('~&#x(0*[0-9a-f]{2,5})~i', create_function('$matches', 'return chr(hexdec($matches[1]));'), $str);
-
         return preg_replace_callback('~&#([0-9]{2,4})~', create_function('$matches', 'return chr($matches[1]);'), $str);
-    }//entity_decode
+    }
 
     /**
      * Filter Attributes
@@ -667,7 +685,6 @@ class Xss
                 $out .= preg_replace("#/\*.*?\*/#s", '', $match);
             }
         }
-
         return $out;
-    }//filter_attributes
+    }
 }

@@ -65,7 +65,6 @@ class HtmlSecurity implements ProjectInterface
     public function setCachePath(string $cachePath = null): HtmlSecurity
     {
         $this->cachePath = $cachePath;
-
         return $this;
     }
 
@@ -86,7 +85,6 @@ class HtmlSecurity implements ProjectInterface
     public function setConfig(array $config = array()): HtmlSecurity
     {
         $this->config = $config;
-
         return $this;
     }
 
