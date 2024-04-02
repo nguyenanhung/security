@@ -18,16 +18,16 @@ namespace nguyenanhung\MySecurity;
  */
 interface ProjectInterface
 {
-    const VERSION = '3.1.2';
-    const USE_BENCHMARK = true;
+	const VERSION = '3.1.3';
+	const USE_BENCHMARK = true;
 
-    /**
-     * Hàm lấy thông tin phiên bản Package
-     *
-     * @author  : 713uk13m <dev@nguyenanhung.com>
-     * @time    : 10/13/18 15:12
-     *
-     * @return string Current Project Version, VD: 0.1.0
-     */
-    public function getVersion(): string;
+	/**
+	 * Hàm lấy thông tin phiên bản Package
+	 *
+	 * @return string Current Project Version, VD: 0.1.0
+	 * @author  : 713uk13m <dev@nguyenanhung.com>
+	 * @time    : 10/13/18 15:12
+	 *
+	 */
+	public function getVersion(): string;
 }
