@@ -1,53 +1,67 @@
 {
-	"name": "nguyenanhung/security",
-	"type": "library",
-	"description": "Wrapper for Security, Encrypt, Encode, Purifier",
-	"keywords": [
-		"security",
-		"encrypt",
-		"encode",
-		"decode"
-	],
-	"homepage": "https://github.com/nguyenanhung/security",
-	"license": "GPL-3.0",
-	"authors": [
-		{
-			"name": "Nguyen An Hung",
-			"email": "dev@nguyenanhung.com",
-			"homepage": "https://nguyenanhung.com",
-			"role": "Developer"
-		}
-	],
-	"require": {
-		"php": "^8.0 || ^7.0",
-		"ext-openssl": "*",
-		"paragonie/sodium_compat": "^1.20",
-		"ircmaxell/password-compat": "^1.0",
-		"symfony/security-csrf": "^7.0 || ^6.4 || ^5.4 || ^4.4 || ^3.4",
-		"ezyang/htmlpurifier": "^4.13",
-		"phpseclib/phpseclib": "^3.0",
-		"phpseclib/mcrypt_compat": "^2.0",
-		"voku/anti-xss": "^4.0 || ^3.0",
-		"nguyenanhung/escape-helper": "^2.0",
-		"nguyenanhung/math-helper": "^2.0",
-		"nguyenanhung/htmlawed": "^1.2"
-	},
-	"require-dev": {
-		"kint-php/kint": ">=3.0"
-	},
-	"suggest": {
-		"ext-json": "Needed to support JSON",
-		"ext-mcrypt": "Needed to support mcrypt",
-		"ext-iconv": "Needed to support iconv",
-		"ext-openssl": "Needed to support openssl",
-		"ext-mbstring": "Needed to support mb_string"
-	},
-	"autoload": {
-		"psr-4": {
-			"nguyenanhung\\MySecurity\\": "src/"
-		},
-		"files": [
-			"helpers/helpers.php"
-		]
-	}
+    "name": "nguyenanhung/security",
+    "type": "library",
+    "description": "Wrapper for Security, Encrypt, Encode, Purifier",
+    "keywords": [
+        "security",
+        "encrypt",
+        "encode",
+        "decode"
+    ],
+    "homepage": "https://github.com/nguyenanhung/security",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Nguyen An Hung",
+            "email": "dev@nguyenanhung.com",
+            "homepage": "https://nguyenanhung.com",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "voku/portable-utf8",
+                "version": "6.0.14",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/joomla-backports/portable-utf8.git",
+                    "reference": "joomla-5.3"
+                }
+            }
+        }
+    ],
+    "require": {
+        "php": "^8.0 || ^7.1",
+        "ext-openssl": "*",
+        "paragonie/sodium_compat": "^1.20",
+        "ircmaxell/password-compat": "^1.0",
+        "symfony/security-csrf": "^7.0 || ^6.4 || ^5.4 || ^4.4 || ^3.4",
+        "ezyang/htmlpurifier": "^4.13",
+        "phpseclib/phpseclib": "^3.0",
+        "phpseclib/mcrypt_compat": "^2.0",
+        "voku/anti-xss": "^4.0 || ^3.0",
+        "nguyenanhung/escape-helper": "^3.0 || ^2.0",
+        "nguyenanhung/math-helper": "^2.0",
+        "nguyenanhung/htmlawed": "^1.2"
+    },
+    "require-dev": {
+        "kint-php/kint": ">=3.0"
+    },
+    "suggest": {
+        "ext-json": "Needed to support JSON",
+        "ext-mcrypt": "Needed to support mcrypt",
+        "ext-iconv": "Needed to support iconv",
+        "ext-openssl": "Needed to support openssl",
+        "ext-mbstring": "Needed to support mb_string"
+    },
+    "autoload": {
+        "psr-4": {
+            "nguyenanhung\\MySecurity\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    }
 }

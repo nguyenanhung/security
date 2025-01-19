@@ -18,7 +18,7 @@ namespace nguyenanhung\MySecurity;
  */
 interface ProjectInterface
 {
-	const VERSION = '4.0.1';
+	const VERSION = '4.0.2';
 	const USE_BENCHMARK = true;
 
 	/**
